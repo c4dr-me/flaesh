@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 
 interface RoadmapStep {
   id: number;
-  step: string;
+  step: string ;
   timeline?: string;
   description?: string;
   left?: RoadmapStep | null;  
@@ -18,6 +18,14 @@ interface RoadmapStep {
 interface RoadmapTreeProps {
   roadmapData: RoadmapStep;
 }
+
+interface FlashcardProps {
+  front: string;
+  back: string;
+}
+
+
+
 
 const RoadmapTree: React.FC<RoadmapTreeProps> = ({ roadmapData }) => {
   const [nodes, setNodes] = useState<Node[]>([]);
@@ -56,9 +64,9 @@ const RoadmapTree: React.FC<RoadmapTreeProps> = ({ roadmapData }) => {
     id: nodeId,
     
 	data: { 
-          label: step?.value?.step, 
-          timeline: step?.value?.timeline, 
-          description: step?.value?.description 
+          label: step.step, 
+          timeline: step.timeline, 
+          description: step.description 
         },
     position: { x: adjustedX, y: adjustedY },
     draggable: true,
@@ -94,7 +102,7 @@ const RoadmapTree: React.FC<RoadmapTreeProps> = ({ roadmapData }) => {
     setEdges(initialEdges);
   }, [roadmapData]);
   
-  const handleNodeClick = async(event: any, node: any) => {
+  const handleNodeClick = async(event: any, node: Node) => {
     const nodeData = nodes.find((n) => n.id === node.id)?.data;
     if (nodeData) {
       setFlashcard({

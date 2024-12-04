@@ -44,7 +44,11 @@ export default function SidebarComponent({
   const [deleteItemId, setDeleteItemId] = useState<number | null>(null);
   const [openDialog, setOpenDialog] = useState(false);
 
-  const handleEditClick = (id: number, currentName: string, type: "roadmap" | "flashcard") => {
+  const handleEditClick = (
+    id: number,
+    currentName: string,
+    type: "roadmap" | "flashcard"
+  ) => {
     onEdit(id, currentName, type);
     setEditingItemId(id);
     setNewName(currentName);
@@ -92,95 +96,103 @@ export default function SidebarComponent({
               </Link>
             </div>
           ) : (
-            <Button className="w-full bg-gradient-to-br from-transparent via-black to-[rgba(241,144,54,0.1)]  bg-opacity-30 text-white rounded border-2 border-red-800/30 backdrop-filter backdrop-blur-lg hover:bg-opacity-50 hover:shadow-[5px_5px_0px_0px_rgb(138,38,38)] transition duration-300">Sign In</Button>
+            <Button className="w-full bg-gradient-to-br from-transparent via-black to-[rgba(241,144,54,0.1)]  bg-opacity-30 text-white rounded border-2 border-red-800/30 backdrop-filter backdrop-blur-lg hover:bg-opacity-50 hover:shadow-[5px_5px_0px_0px_rgb(138,38,38)] transition duration-300">
+              Sign In
+            </Button>
           )}
 
           <div className="mt-6">
-            <div className="w-3 h-3 bg-red-400"></div>
-            <h3 className="text-sm font-semibold text-center">
-              Saved Roadmaps & Flashcards
-            </h3>
+            <div>
+              <h3 className=" bg-black text-sm font-semibold text-gray-300 text-center">
+                Saved Roadmaps & Flashcards
+              </h3>
+              <div className="w-48 h-[3px] mx-auto mt-2 bg-gray-600 rounded-xl"></div>
+            </div>
             {loading ? (
               <p className="mt-4 text-gray-400">Loading...</p>
             ) : (
               <ul className="space-y-2 mt-4">
                 {savedItems.map((item, index) => (
                   <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: index * 0.1, duration: 0.5 }} 
-                >
-                  <SidebarMenuItem
-                    className="bg-transparent flex justify-between items-center p-3 backdrop-filter backdrop-blur-lg bg-opacity-30 rounded-lg  cursor-pointer shadow-lg"
-                    style={{
-                      background: "rgba(157, 70, 18, 0.15)",
-                      boxShadow: "0 8px 32px 0 rgba(235,101,101,0.15)",
-                      backdropFilter: "blur(4px)",
-                      WebkitBackdropFilter: "blur(4px)",
-                      borderRadius: "10px",
-                      border: "1px solid rgba(255, 255, 255, 0.18)",
-                    }}
-                    onClick={() => onItemClick(item.id, item.type)}
+                    key={item.id}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: index * 0.1, duration: 0.5 }}
                   >
-                    {editingItemId === item.id ? (
-                      <div className="flex items-center w-full space-x-1 h-full">
-                        <input
-                          type="text"
-                          value={newName}
-                          onChange={(e) => setNewName(e.target.value)}
-                          onBlur={() => handleBlur(item.id, item.type)}
-                          className="p-2 w-full text-white rounded-lg h-full"
-                          style={{
-                            minHeight: "30px",
-                            background: "rgba(157, 70, 18, 0.15)",
-                          }}
-                        />
-                        <Save
-                          onClick={() => handleSaveEdit(item.id, item.type)}
-                          aria-label={`Save ${item.name}`}
-                          className="w-6 h-100% text-white bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 p-1 rounded-full hover:bg-gradient-to-l cursor-pointer"
-                        />
-                      </div>
-                    ) : (
-                      <div className="flex items-center space-x-3 w-full">
-                        {item.type === "roadmap" ? (
-                          <button
-                            className="w-5 h-5 text-gray-400"
-                            aria-label="Roadmap"
-                            title="Roadmap"
-                          >
-                            <Route size={18} />
-                          </button>
-                        ) : (
-                          <button
-                            className="w-5 h-5 text-gray-400"
-                            aria-label="Flashcard"
-                            title="Flashcards"
-                          >
-                            <CalendarHeart size={18} />
-                          </button>
-                        )}
-                        <span className="text-sm font-medium">{item.name}</span>
-                      </div>
-                    )}
-                    {!editingItemId && (
-                      <div className="flex space-x-3">
-                        <Edit
-                          className="w-5 h-5 text-green-300 hover:text-green-400 cursor-pointer"
-                          onClick={() =>
-                            handleEditClick(item.id, item.name, item.type)
-                          }
-                          aria-label={`Edit ${item.name}`}
-                        />
-                        <Trash
-                          className="w-5 h-5 text-red-200 hover:text-red-300 cursor-pointer"
-                          onClick={() => handleDeleteClick(item.id, item.type)}
-                          aria-label={`Delete ${item.name}`}
-                        />
-                      </div>
-                    )}
-                  </SidebarMenuItem>
+                    <SidebarMenuItem
+                      className="bg-transparent flex justify-between items-center p-3 backdrop-filter backdrop-blur-lg bg-opacity-30 rounded-lg  cursor-pointer shadow-lg"
+                      style={{
+                        background: "rgba(157, 70, 18, 0.15)",
+                        boxShadow: "0 8px 32px 0 rgba(235,101,101,0.15)",
+                        backdropFilter: "blur(4px)",
+                        WebkitBackdropFilter: "blur(4px)",
+                        borderRadius: "10px",
+                        border: "1px solid rgba(255, 255, 255, 0.18)",
+                      }}
+                      onClick={() => onItemClick(item.id, item.type)}
+                    >
+                      {editingItemId === item.id ? (
+                        <div className="flex items-center w-full space-x-1 h-full">
+                          <input
+                            type="text"
+                            value={newName}
+                            onChange={(e) => setNewName(e.target.value)}
+                            onBlur={() => handleBlur(item.id, item.type)}
+                            className="p-2 w-full text-white rounded-lg h-full"
+                            style={{
+                              minHeight: "30px",
+                              background: "rgba(157, 70, 18, 0.15)",
+                            }}
+                          />
+                          <Save
+                            onClick={() => handleSaveEdit(item.id, item.type)}
+                            aria-label={`Save ${item.name}`}
+                            className="w-6 h-100% text-white bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 p-1 rounded-full hover:bg-gradient-to-l cursor-pointer"
+                          />
+                        </div>
+                      ) : (
+                        <div className="flex items-center space-x-3 w-full">
+                          {item.type === "roadmap" ? (
+                            <button
+                              className="w-5 h-5 text-gray-400"
+                              aria-label="Roadmap"
+                              title="Roadmap"
+                            >
+                              <Route size={18} />
+                            </button>
+                          ) : (
+                            <button
+                              className="w-5 h-5 text-gray-400"
+                              aria-label="Flashcard"
+                              title="Flashcards"
+                            >
+                              <CalendarHeart size={18} />
+                            </button>
+                          )}
+                          <span className="text-sm font-medium">
+                            {item.name}
+                          </span>
+                        </div>
+                      )}
+                      {!editingItemId && (
+                        <div className="flex space-x-3">
+                          <Edit
+                            className="w-5 h-5 text-green-300 hover:text-green-400 cursor-pointer"
+                            onClick={() =>
+                              handleEditClick(item.id, item.name, item.type)
+                            }
+                            aria-label={`Edit ${item.name}`}
+                          />
+                          <Trash
+                            className="w-5 h-5 text-red-200 hover:text-red-300 cursor-pointer"
+                            onClick={() =>
+                              handleDeleteClick(item.id, item.type)
+                            }
+                            aria-label={`Delete ${item.name}`}
+                          />
+                        </div>
+                      )}
+                    </SidebarMenuItem>
                   </motion.div>
                 ))}
               </ul>
