@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { motion } from "framer-motion"; // Importing motion from framer-motion
+import { motion } from "framer-motion"; 
 
 export default function TopicPage() {
   const { topic } = useParams();
