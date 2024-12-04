@@ -42,9 +42,9 @@ const FlashcardDeck: React.FC<{ topic: string }> = ({ topic }) => {
         } else {
           throw new Error('Invalid flashcards data');
         }
-      } catch (err) {
-        console.error('Error fetching flashcards:', err);
-        setError(err.message);
+      } catch (error) {
+        console.error('Error fetching flashcards:', error);
+        setError(error.message);
       } finally {
         setLoading(false);
       }
