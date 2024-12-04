@@ -7,7 +7,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useUser, UserButton } from "@clerk/nextjs";
 import { Edit, Trash, Route, CalendarHeart, Save } from "lucide-react";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import {
   Dialog,
   DialogTrigger,
@@ -20,6 +20,19 @@ import { LayoutDashboard } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Skeleton } from "./ui/skeleton";
+
+const SidebarMenuItemSkeleton = () => (
+  <SidebarMenuItem className="bg-transparent h-full flex justify-between items-center p-3 backdrop-filter backdrop-blur-lg bg-opacity-30 rounded-lg cursor-pointer shadow-lg animate-pulse">
+    <div className="flex items-center space-x-3 w-full">
+      <Skeleton className="h-5 w-5 bg-gray-600 rounded-full"></Skeleton>
+      <Skeleton className="h-4 w-3/4 bg-gray-600 rounded"></Skeleton>
+    </div>
+    <div className="flex space-x-3 pl-2">
+      <Skeleton className="h-5 w-5 bg-green-400 rounded-full"></Skeleton>
+      <Skeleton className="h-5 w-5 bg-red-400 rounded-full"></Skeleton>
+    </div>
+  </SidebarMenuItem>
+);
 
 interface SidebarComponentProps {
   isSidebarOpen: boolean;
@@ -85,7 +98,6 @@ export default function SidebarComponent({
     >
       <SidebarContent>
         <div className="p-4">
-          {/* Clerk User Button */}
           {isLoaded && isSignedIn ? (
             <div className="mb-4">
               <Link href="/dashboard">
@@ -96,9 +108,7 @@ export default function SidebarComponent({
               </Link>
             </div>
           ) : (
-            <Button className="w-full bg-gradient-to-br from-transparent via-black to-[rgba(241,144,54,0.1)]  bg-opacity-30 text-white rounded border-2 border-red-800/30 backdrop-filter backdrop-blur-lg hover:bg-opacity-50 hover:shadow-[5px_5px_0px_0px_rgb(138,38,38)] transition duration-300">
-              Sign In
-            </Button>
+            <Skeleton className="w-full h-10 rounded bg-gray-800"/>
           )}
 
           <div className="mt-6">
@@ -108,8 +118,13 @@ export default function SidebarComponent({
               </h3>
               <div className="w-48 h-[3px] mx-auto mt-2 bg-gray-600 rounded-xl"></div>
             </div>
+
             {loading ? (
-              <p className="mt-4 text-gray-400">Loading...</p>
+              <ul className="space-y-2 mt-4">
+                {[...Array(10)].map((_, index) => (
+                  <SidebarMenuItemSkeleton key={index} />
+                ))}
+              </ul>
             ) : (
               <ul className="space-y-2 mt-4">
                 {savedItems.map((item, index) => (
@@ -201,13 +216,16 @@ export default function SidebarComponent({
         </div>
       </SidebarContent>
       <SidebarFooter className="flex justify-end p-4">
-        <UserButton
+        {loading ? (
+      <Skeleton className="w-10 h-10 bg-gray-600 rounded-full" />
+         ):( <UserButton
           appearance={{
             elements: {
               userButtonAvatarBox: "w-10 h-10",
             },
           }}
         />
+  )}
       </SidebarFooter>
 
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>

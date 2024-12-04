@@ -1,9 +1,13 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback, useRef, Suspense } from "react";
 import { ReactFlow, Controls, Background, Node, Edge } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import Flashcard from "./Flashcard";
-import { Rotate3d, BadgeAlert, Save, ChevronLeft } from "lucide-react";
+import { BadgeAlert, Save, ChevronLeft } from "lucide-react";
 import { useUser } from "@clerk/clerk-react";
+import Loader from "./loader";
+import { Toaster } from "@/components/ui/toaster"
+import { ToastAction } from "@/components/ui/toast"
+import { useToast } from "@/hooks/use-toast";
 
 interface FlashcardProps {
   front: string;
@@ -22,6 +26,7 @@ const RoadmapTree: React.FC<{ topic: string }> = ({ topic }) => {
   const roadmapDataRef = useRef<any>(null); 
   const [timeline, setTimeline] = useState<string | null>(null);
   const [description, setDescription] = useState<string | null>(null);
+  const {toast} = useToast();
 
   useEffect(() => {
     const fetchRoadmapData = async () => {
@@ -35,7 +40,20 @@ const RoadmapTree: React.FC<{ topic: string }> = ({ topic }) => {
         });
 
         if (!response.ok) {
+          toast({
+            variant: "destructive",
+            title: `Error ${response.status}`,
+            description: 'Error generating roadmap!',
+            action: <ToastAction altText="Try again">Try again</ToastAction>,
+          });
           throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
+
+        if (response.ok) {
+          toast({
+            title: 'Success',
+            description: 'Roadmap generated successfully!',
+          });
         }
 
         const roadmapData = await response.json();
@@ -166,6 +184,13 @@ const RoadmapTree: React.FC<{ topic: string }> = ({ topic }) => {
           throw new Error("Network response was not ok");
         }
 
+        if (response.ok) {
+          toast({
+            title: 'Success',
+            description: 'Flashcards generated successfully!',
+          });
+        }
+
         const flashcardsData = await response.json();
         console.log("Fetched flashcards data:", flashcardsData);
         flashcardCache.current[topic] = flashcardsData;
@@ -195,7 +220,19 @@ const RoadmapTree: React.FC<{ topic: string }> = ({ topic }) => {
       });
 
       if (!response.ok) {
+        toast({
+          variant: "destructive",
+          title: `Error ${response.status}`,
+          description: 'Flashcards not saved!',
+          action: <ToastAction altText="Try again">Try again</ToastAction>,
+        });
         throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+      if (response.ok) {
+        toast({
+          title: 'Success',
+          description: 'Roadmap saved successfully!',
+        });
       }
     } catch (error) {
       console.error("Error saving roadmap:", error.message);
@@ -215,6 +252,7 @@ const RoadmapTree: React.FC<{ topic: string }> = ({ topic }) => {
 
   return (
     <div className="w-full min-h-screen" >
+      <Suspense fallback={<Loader />}>
       <ReactFlow
         colorMode="dark"
         nodes={nodes}
@@ -225,7 +263,8 @@ const RoadmapTree: React.FC<{ topic: string }> = ({ topic }) => {
       >
         <Controls />
         <Background bgColor="black" size={3} />
-      </ReactFlow>
+        </ReactFlow>
+      </Suspense>
       <div className="mt-10 space-x-4 flex flex-row item-center justify-center">
         <button
           onClick={() =>
@@ -245,9 +284,7 @@ const RoadmapTree: React.FC<{ topic: string }> = ({ topic }) => {
         </button>
       </div>
       {loading && (
-        <div className="flex justify-center items-center h-full">
-          <Rotate3d size={40} className="animate-spin" />
-        </div>
+        <Loader/>
       )}
       {!loading && selectedTopic && (
         <div className="mt-20">
@@ -283,7 +320,7 @@ const RoadmapTree: React.FC<{ topic: string }> = ({ topic }) => {
               </p>
             )}
           </div>
-
+          <Toaster />
           {/* Flashcards */}
           <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {flashcards.map((flashcard, index) => (

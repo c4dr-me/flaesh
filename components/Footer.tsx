@@ -21,7 +21,7 @@ const Footer = () => {
         >
           <Link href="/">
            
-              <Image src="/logo_name.png" width={100} height={30} alt="Logo" />
+              <Image src="/logo_name.png" width={90} height={30} alt="Logo" style={{ width: 'auto' ,height: 'auto' }}/>
             
           </Link>
         </motion.div>

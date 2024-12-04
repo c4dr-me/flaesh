@@ -9,7 +9,6 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import FlashcardDeck from '@/components/FlashcardDeck';
 import { BadgeAlert, ChevronLeft } from 'lucide-react';
 import { Tooltip } from 'react-tooltip';
-import { useUser } from '@clerk/clerk-react'
 import {motion} from 'framer-motion';
 
 const FlashcardPage: React.FC = () => {
@@ -30,27 +29,27 @@ const FlashcardPage: React.FC = () => {
     }
   };
 
-  if (!decodedTopic) {
-    console.log(decodedTopic);
-    return (
-      <div className="flex min-h-screen bg-black text-white items-center justify-center">
-        <Card className="w-full max-w-md bg-gray-800  text-white">
-          <CardHeader className='items-center'>
-          <BadgeAlert size={44} color="#ddb797" strokeWidth={3} data-tooltip-id="my-tooltip"
-          data-tooltip-content="Error fetching data"
-          data-tooltip-place="top" />
-          <Tooltip id='my-tooltip'/>
-          </CardHeader>
-          <CardFooter>
-            <Button onClick={() => router.push('/dashboard')} className="w-full bg-gray-700 hover:bg-gray-800">
-            <ChevronLeft size={30} />
-            Go Back
-            </Button>
-          </CardFooter>
-        </Card>
-      </div>
-    );
-  }
+  // if (!decodedTopic) {
+  //   console.log(decodedTopic);
+  //   return (
+  //     <div className="flex min-h-screen bg-black text-white items-center justify-center">
+  //       <Card className="w-full max-w-md bg-gray-800  text-white">
+  //         <CardHeader className='items-center'>
+  //         <BadgeAlert size={44} color="#ddb797" strokeWidth={3} data-tooltip-id="my-tooltip"
+  //         data-tooltip-content="Error fetching data"
+  //         data-tooltip-place="top" />
+  //         <Tooltip id='my-tooltip'/>
+  //         </CardHeader>
+  //         <CardFooter>
+  //           <Button onClick={() => router.push('/dashboard')} className="w-full bg-gray-700 hover:bg-gray-800">
+  //           <ChevronLeft size={30} />
+  //           Go Back
+  //           </Button>
+  //         </CardFooter>
+  //       </Card>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="flex flex-col min-h-screen justify-center align-middle bg-transparent text-white">

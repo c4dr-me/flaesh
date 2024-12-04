@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 
 interface RoadmapStep {
   id: number;
-  step: string ;
+  step: string;
   timeline?: string;
   description?: string;
   left?: RoadmapStep | null;  
@@ -23,9 +23,6 @@ interface FlashcardProps {
   front: string;
   back: string;
 }
-
-
-
 
 const RoadmapTree: React.FC<RoadmapTreeProps> = ({ roadmapData }) => {
   const [nodes, setNodes] = useState<Node[]>([]);
@@ -64,9 +61,9 @@ const RoadmapTree: React.FC<RoadmapTreeProps> = ({ roadmapData }) => {
     id: nodeId,
     
 	data: { 
-          label: step.step, 
-          timeline: step.timeline, 
-          description: step.description 
+          label: step?.value?.step, 
+          timeline: step?.value?.timeline, 
+          description: step?.value?.description 
         },
     position: { x: adjustedX, y: adjustedY },
     draggable: true,
@@ -102,7 +99,7 @@ const RoadmapTree: React.FC<RoadmapTreeProps> = ({ roadmapData }) => {
     setEdges(initialEdges);
   }, [roadmapData]);
   
-  const handleNodeClick = async(event: any, node: Node) => {
+  const handleNodeClick = async(event: any, node: any) => {
     const nodeData = nodes.find((n) => n.id === node.id)?.data;
     if (nodeData) {
       setFlashcard({
@@ -136,8 +133,8 @@ const RoadmapTree: React.FC<RoadmapTreeProps> = ({ roadmapData }) => {
   };
 
   return (
-    <div style={{ width: '100%', height: '500px' }}>
-      <ReactFlow colorMode="dark" nodes={nodes} edges={edges} onNodeClick={handleNodeClick} fitView>
+    <div className="w-full min-h-screen">
+      <ReactFlow colorMode="dark" nodes={nodes} edges={edges} onNodeClick={handleNodeClick} className="min-h-screen min-w-[80vw]" fitView>
         <Controls />
         <Background bgColor="black" size={3} />
       </ReactFlow>

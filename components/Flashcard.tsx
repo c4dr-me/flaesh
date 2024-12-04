@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CardContent } from '@/components/ui/card';
+import { CardContent, CardTitle } from '@/components/ui/card';
 import { motion } from 'framer-motion';
 
 interface FlashcardProps {
@@ -26,6 +26,7 @@ const Flashcard: React.FC<FlashcardProps> = ({ front, back }) => {
           className="absolute w-full h-full bg-gradient-to-br from-transparent via-black to-[rgba(241,144,54,0.1)] text-white p-6 rounded-lg shadow-lg flex flex-col justify-center items-center backdrop-blur-xl border border-orange-500/30"
           style={{ backfaceVisibility: 'hidden' }}
         >
+          <CardTitle className="hidden"></CardTitle>
           <CardContent className="mt-2">
             <p className="text-md font-bold italic text-center">{front}</p>
           </CardContent>
@@ -37,6 +38,8 @@ const Flashcard: React.FC<FlashcardProps> = ({ front, back }) => {
             transform: 'rotateY(180deg)',
           }}
         >
+          <CardTitle className="hidden">
+          </CardTitle>
           <CardContent className="mt-4 space-y-4 overflow-auto">
             <p className="text-md text-center break-words text-gray-200 font-bold">{back}</p>
           </CardContent>

@@ -20,7 +20,7 @@ export default function TopicPage() {
         className="text-4xl md:text-5xl font-extrabold text-center leading-tight"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.1 }}
       >
         Explore the topic{" "}
         <span className="relative text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-purple-500 to-orange-500">
