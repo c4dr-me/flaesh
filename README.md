@@ -29,19 +29,15 @@ Welcome to the **[Flash](https://flaesh.vercel.app/)**, a comprehensive tool for
 - **Cached Roadmap Data:** Quickly revisit previously explored roadmaps without additional loading.
   ![Roadmaps](./public/roadmap.mp4)
 
-### Collaborative Sidebar
+### User-friendly Sidebar
 
 - **Dynamic Sidebar:** View your saved flashcards and roadmaps in a collapsible sidebar.
 - **Quick Access:** Easily navigate between topics with the intuitive interface.
+- **Skeleton Loader:** Skeleton loader for better UX
+  ![Dashboard Skeleton](./public/dashboardwithskeleton.png)
 - **Responsive Design:** The sidebar adjusts dynamically for desktop and mobile users.
   ![Dashboard](./public/dashboard.png)
-
-### User-Friendly Navigation
-
-- **Toggle Sidebar:** Open or close the sidebar as needed to focus on your content.
-- **Seamless Transitions:** Enjoy smooth animations for an engaging user experience.
-  ![Dashboard Skeleton](./public/dashboardwithskeleton.png)
-
+  
 ### Backend Efficiency
 
 - **API-Driven Architecture:** Leverages a robust backend API to fetch, edit, and delete flashcards and roadmaps.
