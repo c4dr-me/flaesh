@@ -11,12 +11,12 @@ Welcome to the **[Flash](https://flaesh.vercel.app/)**, a comprehensive tool for
 - **Dark Theme:** A sleek, modern dark theme for reduced eye strain and enhanced visual appeal.
 - **Animation:** Simple and smooth animations
 - **Responsive Layout:** Fully responsive design that looks great on any device.
-  ![Homepage]([https://github.com/user-attachments/assets/66b29c2c-6036-4c3e-824f-6ae604fa59fa](https://github-production-user-asset-6210df.s3.amazonaws.com/142721314/392571184-cbe9fd06-aba3-4f60-b358-3cafd3197dcf.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20241204%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241204T212533Z&X-Amz-Expires=300&X-Amz-Signature=2bf66ab2bb7e808f9bd18bc95e4f3642a695178fc266a76014583483ff68e38e&X-Amz-SignedHeaders=host))
   
-
-
-
-
+ <video width="320" height="240" controls>
+  <source src="https://github.com/c4dr-me/Flaesh/raw/main/public/homepage.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+  
 
 ### Flashcards
 
