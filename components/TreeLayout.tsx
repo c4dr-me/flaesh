@@ -2,21 +2,26 @@ import React, { useState, useEffect } from 'react';
 import { ReactFlow, Controls, Background, Node, Edge } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import Flashcard from './Flashcard';
-import { Rotate3d, BadgeAlert, ChevronLeft } from 'lucide-react';
+import { BadgeAlert, ChevronLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import Loader from './loader';
 
 interface RoadmapStep {
   id: number;
   step: string;
   timeline?: string;
   description?: string;
-  left?: RoadmapStep | null;  
-  right?: RoadmapStep | null; 
+  left?: RoadmapStep | null;
+  right?: RoadmapStep | null;
 }
 
 interface RoadmapTreeProps {
-  roadmapData: RoadmapStep;
+  roadmapData: {
+    value: RoadmapStep;
+    left?: RoadmapTreeProps['roadmapData'] | null;
+    right?: RoadmapTreeProps['roadmapData'] | null;
+  };
 }
 
 interface FlashcardProps {
@@ -24,7 +29,7 @@ interface FlashcardProps {
   back: string;
 }
 
-const RoadmapTree: React.FC<RoadmapTreeProps> = ({ roadmapData }) => {
+const TreeLayout: React.FC<RoadmapTreeProps> = ({ roadmapData }) => {
   const [nodes, setNodes] = useState<Node[]>([]);
   const [edges, setEdges] = useState<Edge[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -32,85 +37,82 @@ const RoadmapTree: React.FC<RoadmapTreeProps> = ({ roadmapData }) => {
   const [flashcards, setFlashcards] = useState<FlashcardProps[]>([]);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
-  
-  console.log(roadmapData);
 
+  console.log(roadmapData);
 
   useEffect(() => {
     const generateTree = (
-  step: RoadmapStep,
-  parentId: string | null,
-  posX: number,
-  posY: number,
-  occupiedPositions: Set<string>
-): [Node[], Edge[]] => {
-  const newNodes: Node[] = [];
-  const newEdges: Edge[] = [];
-  const nodeId = Math.random().toString(36).substring(7); 
-  
-	let adjustedX = posX;
-    let adjustedY = posY;
-	
-	while (occupiedPositions.has(`${adjustedX},${adjustedY}`)) {
-        adjustedX += 160; 
-        adjustedY += 0; 
+      step: RoadmapTreeProps['roadmapData'],
+      parentId: string | null,
+      posX: number,
+      posY: number,
+      occupiedPositions: Set<string>
+    ): [Node[], Edge[]] => {
+      const newNodes: Node[] = [];
+      const newEdges: Edge[] = [];
+      const nodeId = Math.random().toString(36).substring(7);
+
+      let adjustedX = posX;
+      let adjustedY = posY;
+
+      while (occupiedPositions.has(`${adjustedX},${adjustedY}`)) {
+        adjustedX += 160;
+        adjustedY += 0;
       }
-	  occupiedPositions.add(`${adjustedX},${adjustedY}`);
-  
-  newNodes.push({
-    id: nodeId,
-    
-	data: { 
-          label: step?.value?.step, 
-          timeline: step?.value?.timeline, 
-          description: step?.value?.description 
+      occupiedPositions.add(`${adjustedX},${adjustedY}`);
+
+      newNodes.push({
+        id: nodeId,
+        data: {
+          label: step.value.step,
+          timeline: step.value.timeline,
+          description: step.value.description,
         },
-    position: { x: adjustedX, y: adjustedY },
-    draggable: true,
-  });
+        position: { x: adjustedX, y: adjustedY },
+        draggable: true,
+      });
 
-  if (parentId) {
-    newEdges.push({
-      id: `e${parentId}-${nodeId}`,
-      source: parentId,
-      target: nodeId,
-      animated: true,
-    });
-  }
+      if (parentId) {
+        newEdges.push({
+          id: `e${parentId}-${nodeId}`,
+          source: parentId,
+          target: nodeId,
+          animated: true,
+        });
+      }
 
-  if (step.left) {
-    const [leftNodes, leftEdges] = generateTree(step.left, nodeId, adjustedX - 200, adjustedY + 100, occupiedPositions);
-    newNodes.push(...leftNodes);
-    newEdges.push(...leftEdges);
-  }
+      if (step.left) {
+        const [leftNodes, leftEdges] = generateTree(step.left, nodeId, adjustedX - 200, adjustedY + 100, occupiedPositions);
+        newNodes.push(...leftNodes);
+        newEdges.push(...leftEdges);
+      }
 
-  if (step.right) {
-    const [rightNodes, rightEdges] = generateTree(step.right, nodeId, adjustedX + 200, adjustedY + 100, occupiedPositions);
-    newNodes.push(...rightNodes);
-    newEdges.push(...rightEdges);
-  }
+      if (step.right) {
+        const [rightNodes, rightEdges] = generateTree(step.right, nodeId, adjustedX + 200, adjustedY + 100, occupiedPositions);
+        newNodes.push(...rightNodes);
+        newEdges.push(...rightEdges);
+      }
 
-  return [newNodes, newEdges];
-};
+      return [newNodes, newEdges];
+    };
 
-	const occupiedPositions = new Set<string>();
+    const occupiedPositions = new Set<string>();
     const [initialNodes, initialEdges] = generateTree(roadmapData, null, 250, 0, occupiedPositions);
     setNodes(initialNodes);
     setEdges(initialEdges);
   }, [roadmapData]);
-  
-  const handleNodeClick = async(event: any, node: any) => {
+
+  const handleNodeClick = async (event: any, node: any) => {
     const nodeData = nodes.find((n) => n.id === node.id)?.data;
     if (nodeData) {
       setFlashcard({
-        step: nodeData.label,
-        timeline: nodeData.timeline, 
-        description: nodeData.description, 
+        step: nodeData.label as string,
+        timeline: nodeData.timeline as string,
+        description: nodeData.description as string,
       });
-	  
     }
-	setLoading(true);
-	try {
+    setLoading(true);
+    try {
       const response = await fetch('/api/generate', {
         method: 'POST',
         headers: {
@@ -127,9 +129,9 @@ const RoadmapTree: React.FC<RoadmapTreeProps> = ({ roadmapData }) => {
       setFlashcards(flashcardsData);
     } catch (error) {
       console.error('Error fetching flashcards:', error);
-    } finally{
-	setLoading(false);
-	}
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -138,8 +140,8 @@ const RoadmapTree: React.FC<RoadmapTreeProps> = ({ roadmapData }) => {
         <Controls />
         <Background bgColor="black" size={3} />
       </ReactFlow>
-	  
-	  {/* Timeline and Description */}
+
+      {/* Timeline and Description */}
       {flashcard && (
         <div
           style={{
@@ -162,8 +164,8 @@ const RoadmapTree: React.FC<RoadmapTreeProps> = ({ roadmapData }) => {
 
       {/* Flashcards */}
       {loading && (
-        <div className="flex justify-center items-center h-full">
-          <Rotate3d size={40} className="animate-spin" />
+        <div className="flex justify-center items-center h-full mt-10">
+          <Loader />
         </div>
       )}
 
@@ -183,17 +185,16 @@ const RoadmapTree: React.FC<RoadmapTreeProps> = ({ roadmapData }) => {
         </div>
       )}
       <footer className="flex items-center justify-center p-6 space-x-4">
-     <Button
-       onClick={() => router.back()}
-       className="bg-white hover:bg-gray-300 text-black"
-     >
-       <ChevronLeft size={30} />
-       Go Back
-     </Button> 
-     
-   </footer>
+        <Button
+          onClick={() => router.back()}
+          className="bg-white hover:bg-gray-300 text-black"
+        >
+          <ChevronLeft size={30} />
+          Go Back
+        </Button>
+      </footer>
     </div>
   );
 };
 
-export default RoadmapTree;
+export default TreeLayout;

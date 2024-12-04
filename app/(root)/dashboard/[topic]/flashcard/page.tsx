@@ -5,10 +5,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import FlashcardDeck from '@/components/FlashcardDeck';
-import { BadgeAlert, ChevronLeft } from 'lucide-react';
-import { Tooltip } from 'react-tooltip';
 import {motion} from 'framer-motion';
 
 const FlashcardPage: React.FC = () => {

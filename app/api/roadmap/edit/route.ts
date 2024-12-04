@@ -21,7 +21,7 @@ export async function POST(req: Request) {
   } catch (error) {
     console.error('Error updating flashcard:', error);
     return new Response(
-      JSON.stringify({ message: 'Error updating flashcard', error: error.message }),
+      JSON.stringify({ message: 'Error updating flashcard', error: error}),
       { status: 500 }
     );
   }

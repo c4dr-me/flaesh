@@ -35,6 +35,6 @@ export async function POST(req: Request) {
     return NextResponse.json(flashcards.flashcards);
   } catch (error) {
     console.error("Error creating flashcards:", error);
-    return NextResponse.json({ error: error.message || "Failed to generate flashcards" }, { status: 500 });
+    return NextResponse.json({ error: error || "Failed to generate flashcards" }, { status: 500 });
   }
 }

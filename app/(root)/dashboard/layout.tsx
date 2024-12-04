@@ -44,9 +44,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   }[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedFlashcard, setSelectedFlashcard] = useState<FlashcardData[] | null>(null);
-  const [selectedRoadmap, setSelectedRoadmap] = useState<RoadmapData[] | null>(null);
+  const [selectedRoadmap, setSelectedRoadmap] = useState<RoadmapStep | null>(null);
   const [cachedFlashcards, setCachedFlashcards] = useState<Record<number, FlashcardData[]>>({});
-  const [cachedRoadmaps, setCachedRoadmaps] = useState<Record<number, RoadmapData[]>>({});
+  const [cachedRoadmaps, setCachedRoadmaps] = useState<Record<number, RoadmapStep | null>>({});
  const { toast } = useToast();
 
   useEffect(() => {
