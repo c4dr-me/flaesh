@@ -96,7 +96,8 @@ export default function SidebarComponent({
           )}
 
           <div className="mt-6">
-            <h3 className="text-lg font-semibold">
+            <div className="w-3 h-3 bg-red-400"></div>
+            <h3 className="text-sm font-semibold text-center">
               Saved Roadmaps & Flashcards
             </h3>
             {loading ? (

@@ -10,7 +10,7 @@ export default function TopicPage() {
 
   useEffect(() => {
     if (topic) {
-      setDecodedTopic(decodeURIComponent(topic));
+      setDecodedTopic(decodeURIComponent(topic as string));
     }
   }, [topic]);
 
