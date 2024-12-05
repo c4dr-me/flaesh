@@ -11,7 +11,7 @@ Welcome to the **[Flaesh](https://flaesh.vercel.app/)**, a comprehensive tool fo
 - **Dark Theme:** A sleek, modern dark theme for reduced eye strain and enhanced visual appeal.
 - **Animation:** Simple and smooth animations
 - **Responsive Layout:** Fully responsive design that looks great on any device.
-  ![Homepage](./public/homepage.mp4)
+  ![Homepage](./public/homepage.png)
 
 ### Flashcards
 
@@ -27,7 +27,7 @@ Welcome to the **[Flaesh](https://flaesh.vercel.app/)**, a comprehensive tool fo
 - **Topic Focus:** Dive deep into specific topics by selecting a roadmap.
 - **Description:** Get timeline, brief description and instant flashcards for roadmap topics
 - **Cached Roadmap Data:** Quickly revisit previously explored roadmaps without additional loading.
-  ![Roadmaps](./public/roadmap.mp4)
+  ![Roadmaps](./public/roadmap.png)
 
 ### Collaborative Sidebar
 
