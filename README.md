@@ -11,7 +11,12 @@ Welcome to the **[Flaesh](https://flaesh.vercel.app/)**, a comprehensive tool fo
 - **Dark Theme:** A sleek, modern dark theme for reduced eye strain and enhanced visual appeal.
 - **Animation:** Simple and smooth animations
 - **Responsive Layout:** Fully responsive design that looks great on any device.
-  ![Homepage](./public/homepage.mp4)
+  
+ <video width="320" height="240" controls>
+  <source src="https://github.com/c4dr-me/Flaesh/raw/main/public/homepage.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+  
 
 ### Flashcards
 
@@ -27,21 +32,17 @@ Welcome to the **[Flaesh](https://flaesh.vercel.app/)**, a comprehensive tool fo
 - **Topic Focus:** Dive deep into specific topics by selecting a roadmap.
 - **Description:** Get timeline, brief description and instant flashcards for roadmap topics
 - **Cached Roadmap Data:** Quickly revisit previously explored roadmaps without additional loading.
-  ![Roadmaps](./public/roadmap.mp4)
+  ![Roadmaps](https://github.com/user-attachments/assets/cbe9fd06-aba3-4f60-b358-3cafd3197dcf)
 
-### Collaborative Sidebar
+### User-friendly Sidebar
 
 - **Dynamic Sidebar:** View your saved flashcards and roadmaps in a collapsible sidebar.
 - **Quick Access:** Easily navigate between topics with the intuitive interface.
+- **Skeleton Loader:** Skeleton loader for better UX
+  ![Dashboard Skeleton](./public/dashboardwithskeleton.png)
 - **Responsive Design:** The sidebar adjusts dynamically for desktop and mobile users.
   ![Dashboard](./public/dashboard.png)
-
-### User-Friendly Navigation
-
-- **Toggle Sidebar:** Open or close the sidebar as needed to focus on your content.
-- **Seamless Transitions:** Enjoy smooth animations for an engaging user experience.
-  ![Dashboard Skeleton](./public/dashboardwithskeleton.png)
-
+  
 ### Backend Efficiency
 
 - **API-Driven Architecture:** Leverages a robust backend API to fetch, edit, and delete flashcards and roadmaps.
