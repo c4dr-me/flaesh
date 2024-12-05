@@ -8,7 +8,7 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import Footer from "@/components/Footer";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import Header from "@/components/Header";
-
+import { Analytics } from '@vercel/analytics/next';
 import "./globals.css";
 
 const IBMPlex = IBM_Plex_Sans({
@@ -37,7 +37,9 @@ export default function RootLayout({
         <body className={classNames("font-IBMPlex antialiased", IBMPlex.variable)}>
           <AnimatedBackground />
           {renderHeader && <Header />}
-          <SidebarProvider>{children}</SidebarProvider>
+          <SidebarProvider>{children}
+          <Analytics />
+          </SidebarProvider>
           {renderHeader && <Footer />}
           
         </body>
