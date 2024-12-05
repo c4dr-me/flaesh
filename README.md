@@ -48,7 +48,7 @@ Welcome to the **[Flaesh](https://flaesh.vercel.app/)**, a comprehensive tool fo
 - **Error Handling:** Ensures consistent performance and helpful error messages.
 - **Toast message:** Ensures Better UX
 
-  ![CRUD](./public/image.png)
+  ![CRUD](./public/edit.png)
 
 ## **Tech Stack**
 
