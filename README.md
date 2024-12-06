@@ -1,6 +1,6 @@
 # Flashcard Roadmap SaaS Application
 
-Welcome to the **[Flaesh](https://flaesh.vercel.app/)**, a comprehensive tool for learning and planning success! This application combines interactive flashcards with visually appealing roadmaps to help users master new topics and stay organized. Whether you're a student, professional, or lifelong learner, this app is designed to enhance your knowledge retention and streamline your learning journey.
+Welcome to the **Flaesh**, a comprehensive tool for learning and planning success! This application combines interactive flashcards with visually appealing roadmaps to help users master new topics and stay organized. Whether you're a student, professional, or lifelong learner, this app is designed to enhance your knowledge retention and streamline your learning journey.
 
 **Link**: [https://flaesh.vercel.app/](https://flaesh.vercel.app/)
 
