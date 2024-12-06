@@ -34,6 +34,9 @@ jobs:
           echo "SIGNING_SECRET=${{ secrets.SIGNING_SECRET }}" >> $GITHUB_ENV
           echo "GROQ_API_KEY=${{ secrets.GROQ_API_KEY }}" >> $GITHUB_ENV
 
+      - name: Install dependencies
+        run: npm install
+
       - name: Build the application
         env:
           NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
