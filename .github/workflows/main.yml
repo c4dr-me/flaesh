@@ -36,7 +36,8 @@ jobs:
           echo "CLERK_FRONTEND_API=${{ secrets.CLERK_FRONTEND_API }}" >> $GITHUB_ENV
           echo "SIGNING_SECRET=${{ secrets.SIGNING_SECRET }}" >> $GITHUB_ENV
           echo "GROQ_API_KEY=${{ secrets.GROQ_API_KEY }}" >> $GITHUB_ENV
-
+      - name: Debug Environment Variables
+        run: env
 
       - name: Build Docker image and run tests
         run: |
