@@ -22,6 +22,22 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: Set up environment variables
+        run: |
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> $GITHUB_ENV
+          echo "DIRECT_URL=${{ secrets.DIRECT_URL }}" >> $GITHUB_ENV
+          echo "NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_CLERK_SIGN_IN_URL=${{ secrets.NEXT_PUBLIC_CLERK_SIGN_IN_URL }}" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_CLERK_SIGN_UP_URL=${{ secrets.NEXT_PUBLIC_CLERK_SIGN_UP_URL }}" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_CLERK_SIGN_IN_FORCE_REDIRECT_URL=${{ secrets.NEXT_PUBLIC_CLERK_SIGN_IN_FORCE_REDIRECT_URL }}" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL=${{ secrets.NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL }}" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}" >> $GITHUB_ENV
+          echo "CLERK_SECRET_KEY=${{ secrets.CLERK_SECRET_KEY }}" >> $GITHUB_ENV
+          echo "CLERK_FRONTEND_API=${{ secrets.CLERK_FRONTEND_API }}" >> $GITHUB_ENV
+          echo "SIGNING_SECRET=${{ secrets.SIGNING_SECRET }}" >> $GITHUB_ENV
+          echo "GROQ_API_KEY=${{ secrets.GROQ_API_KEY }}" >> $GITHUB_ENV
+
+
       - name: Build Docker image and run tests
         run: |
           docker build -t ${{ vars.DOCKER_USERNAME }}/${{ github.event.repository.name }}:latest .
