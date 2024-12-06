@@ -1,0 +1,31 @@
+
+services:
+  app:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      DATABASE_URL=postgresql://postgres:1974@localhost:5432/Flaesh
+      NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+      NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+      NEXT_PUBLIC_CLERK_SIGN_IN_FORCE_REDIRECT_URL=/dashboard
+      NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL=/
+      NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_cHJvcGVyLXJvZGVudC01MS5jbGVyay5hY2NvdW50cy5kZXYk
+      CLERK_SECRET_KEY=sk_test_RNuYZ1cg9wabXIfpKL2fLAGu6jAHkhgwZqv3nwhQAR
+      CLERK_FRONTEND_API=https://proper-rodent-51.clerk.accounts.dev
+      SIGNING_SECRET=whsec_GdNav8ThcGSbYy8pzFx1RhQQEzFAb9Kj
+      GROQ_API_KEY=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
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1974
+      POSTGRES_DB: Flaesh
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
