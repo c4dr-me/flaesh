@@ -52,7 +52,6 @@ jobs:
       - name: Debug environment variables
         run: |
           echo "CLERK_PUBLISHABLE_KEY=${{ secrets.CLERK_PUBLISHABLE_KEY }}"
-          CLERK_PUBLISHABLE_KEY:  secrets.CLERK_PUBLISHABLE_KEY 
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
