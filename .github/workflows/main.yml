@@ -49,13 +49,29 @@ jobs:
           SIGNING_SECRET: ${{ secrets.SIGNING_SECRET }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
 
+      - name: Debug environment variables
+        run: |
+          echo "DATABASE_URL=$DATABASE_URL"
+          echo "DIRECT_URL=$DIRECT_URL"
+          echo "NEXTAUTH_URL=$NEXTAUTH_URL"
+          echo "NEXT_PUBLIC_CLERK_SIGN_IN_URL=$NEXT_PUBLIC_CLERK_SIGN_IN_URL"
+          echo "NEXT_PUBLIC_CLERK_SIGN_UP_URL=$NEXT_PUBLIC_CLERK_SIGN_UP_URL"
+          echo "NEXT_PUBLIC_CLERK_SIGN_IN_FORCE_REDIRECT_URL=$NEXT_PUBLIC_CLERK_SIGN_IN_FORCE_REDIRECT_URL"
+          echo "NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL=$NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL"
+          echo "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=$NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY"
+          echo "CLERK_SECRET_KEY=$CLERK_SECRET_KEY"
+          echo "CLERK_FRONTEND_API=$CLERK_FRONTEND_API"
+          echo "CLERK_PUBLISHABLE_KEY=$CLERK_PUBLISHABLE_KEY"
+          echo "SIGNING_SECRET=$SIGNING_SECRET"
+          echo "GROQ_API_KEY=$GROQ_API_KEY"
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
       - name: Build Docker image and run tests
         run: |
           docker build --build-arg NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.CLERK_PUBLISHABLE_KEY }} -t ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:latest .
-          docker run --rm ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:latest npm run test
+          docker run --rm -e NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.CLERK_PUBLISHABLE_KEY }} ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:latest npm run test
           
 
       - name: Build and push Docker image
