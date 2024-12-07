@@ -54,7 +54,7 @@ jobs:
 
       - name: Build Docker image and run tests
         run: |
-          docker build --build-arg CLERK_PUBLISHABLE_KEY=${{ secrets.CLERK_PUBLISHABLE_KEY }} -t ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:latest .
+          docker build --build-arg NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.CLERK_PUBLISHABLE_KEY }} -t ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:latest .
           docker run --rm ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:latest npm run test
           
 
