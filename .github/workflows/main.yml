@@ -31,6 +31,7 @@ jobs:
           echo "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}" >> $GITHUB_ENV
           echo "CLERK_SECRET_KEY=${{ secrets.CLERK_SECRET_KEY }}" >> $GITHUB_ENV
           echo "CLERK_FRONTEND_API=${{ secrets.CLERK_FRONTEND_API }}" >> $GITHUB_ENV
+          echo "CLERK_PUBLISHABLE_API=${{ secrets.CLERK_PUBLISHABLE_API }}" >> $GITHUB_ENV
           echo "SIGNING_SECRET=${{ secrets.SIGNING_SECRET }}" >> $GITHUB_ENV
           echo "GROQ_API_KEY=${{ secrets.GROQ_API_KEY }}" >> $GITHUB_ENV
         env:
@@ -44,6 +45,7 @@ jobs:
           NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
           CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
           CLERK_FRONTEND_API: ${{ secrets.CLERK_FRONTEND_API }}
+          CLERK_PUBLISHABLE_API: ${{ secrets.CLERK_PUBLISHABLE_API }}
           SIGNING_SECRET: ${{ secrets.SIGNING_SECRET }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
 
@@ -52,7 +54,7 @@ jobs:
 
       - name: Build Docker image and run tests
         run: |
-          docker build --build-arg NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }} -t ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:latest .
+          docker build --build-arg CLERK_PUBLISHABLE_KEY=${{ secrets.CLERK_PUBLISHABLE_KEY }} -t ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:latest .
           docker run --rm ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:latest npm run test
           
 
