@@ -21,7 +21,7 @@ ARG CLERK_PUBLISHABLE_KEY
 ENV CLERK_PUBLISHABLE_KEY=$CLERK_PUBLISHABLE_KEY
 RUN npm run build
 
-FROM base as test
+FROM node:latest as test
 ENV NODE_ENV test
 RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \
